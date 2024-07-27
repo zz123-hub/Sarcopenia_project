@@ -1,0 +1,14 @@
+library(WGCNA)
+data <- read.csv("data.csv")
+lm_asm <- lm(ASMI ~ age , data = data)
+residuals_asm <- lm_asm$residuals
+
+cor_asm <- cor(data[, 7:ncol(data)], residuals_asm, method = "spearman")
+pvalues_asm <- corPvalueStudent(cor_asm, nrow(data))
+
+cor_asm <- cor(data[, 7:ncol(data)], residuals_asm, method = "spearman")
+pvalues_asm <- corPvalueStudent(cor_asm, nrow(data))
+
+results <- data.frame(ASM_correlation = cor_asm, ASM_pvalues = pvalues_asm)
+
+

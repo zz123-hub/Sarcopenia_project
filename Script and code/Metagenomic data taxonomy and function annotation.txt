@@ -1,0 +1,13 @@
+#For metagenomic data taxonomy annotation
+
+software:MetaPhlAn3
+
+Parameter:
+
+metaphlan --bowtie2db metaphlan_databases --bowtie2_exe bowtie2 --input_type fastq C1.fq.gz --nproc 24 > C1.txt
+
+merge_metaphlan_tables.py *metaphlan_bugs_list.tsv > merged_metaphlan.txt
+
+software:Humann
+
+humann --threads 20 --input A1.fa --output humann/ &

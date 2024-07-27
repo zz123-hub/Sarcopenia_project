@@ -1,0 +1,15 @@
+library(tidyverse)
+cl_data <- read_delim("clinic.txt", delim = "\t", col_names = TRUE)
+tax_data <- read_delim("tax.txt", delim = "\t", col_names = TRUE)
+merged_data <- inner_join(cl_data, tax_data, by = "sample_id")
+ggplot(merged_data, aes(x = niacin_abundance, y = tcs)) +
+  geom_point() +
+  labs(x = "Niacin Abundance", y = "tcs", title = "Scatter Plot of Niacin Abundance vs calf") +
+  theme_minimal()
+linear_model <- lm(tcs ~ niacin_abundance, data = merged_data)
+summary(linear_model)
+ggplot(merged_data, aes(x = niacin_abundance, y = tcs)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(x = "Niacin Abundance", y = "tcs", title = "Scatter Plot of Niacin Abundance vs tcs with Regression Line") +
+  theme_minimal()
